@@ -16,6 +16,14 @@ ROOT_CLASS_NAME = 'RootJsonClass'
 app = Flask(__name__)
 
 
+@app.after_request
+def allow_cors(response):
+    """Allow CORS on every response this server sends."""
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
+    return response
+
+
 @app.route('/', methods=['GET'])
 def home():
     return 'JSON -> POJO server ready!'
